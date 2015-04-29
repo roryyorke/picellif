@@ -16,6 +16,7 @@
 
 #include <windows.h> /* lots of things */
 #include <shlobj.h> /* DROPFILES */
+#include <shellapi.h> /* CommandLineToArgvW */
 
 /* print message and exit 
  * TODO: handle no-console case better */
@@ -51,6 +52,8 @@ main()
 {
   int argc;
   LPWSTR *argv;
+  wchar_t *dntl= NULL;
+  int iarg;
 
   DIZ(argv = CommandLineToArgvW(GetCommandLineW(), &argc));
 
@@ -60,8 +63,6 @@ main()
       exit(2);
     }
 
-  wchar_t *dntl= NULL;
-  int iarg;
   for(iarg=1; iarg<argc; iarg++)
     {
       dntl_append_glob(&dntl,argv[iarg]);
@@ -131,7 +132,7 @@ dntl_append_glob(wchar_t **dntl, wchar_t const *glob)
   HANDLE hFind=FindFirstFileW(glob,&findFileData);
   /* TODO: actual error message here; user error, not a bug */
   DIZ(INVALID_HANDLE_VALUE != hFind );
-  while(1)
+  for(;;)
     {
       wchar_t abspath[MAX_PATH];
       DWORD res;
