@@ -48,19 +48,6 @@ static size_t dntl_chars(wchar_t const *dntl);
 /* copy list to clipboard */
 static void dntl_to_clipboard(wchar_t const *dntl);
 
-/* print double null-terminated list */
-void dntl_print(wchar_t const *dntl)
-{
-  wchar_t const *s=dntl;
-  int i=1;
-  while(*s!=0)
-    {
-      printf("%d: %S\n",i,s);
-      i++;
-      s+= 1 + wcslen(s);
-    }
-}
-
 int 
 main()
 {
@@ -81,8 +68,6 @@ main()
     {
       dntl_append_glob(&dntl,argv[iarg]);
     }
-
-  dntl_print(dntl);
 
   LocalFree(argv);
 
