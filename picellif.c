@@ -48,6 +48,8 @@ static size_t dntl_chars(wchar_t const *dntl);
 /* copy list to clipboard */
 static void dntl_to_clipboard(wchar_t const *dntl);
 
+static void dntl_print(wchar_t const *dntl);
+
 int 
 main()
 {
@@ -70,6 +72,8 @@ main()
     }
 
   LocalFree(argv);
+
+  dntl_print(dntl);
 
   dntl_to_clipboard(dntl);
 
@@ -145,6 +149,10 @@ dntl_append_glob(wchar_t **dntl, wchar_t const *glob)
   dirname[filename-glob]=0;
   GetFullPathNameW(dirname, MAX_PATH, absdirname, NULL);
 
+  printf("glob: '%S'\n",glob);
+  printf("dirname: '%S'\n",dirname);
+  printf("absdirname: '%S'\n",absdirname);
+
   /* unclear if this should *only* be done w/ 32-bit compiles on 64-bit system */
 #if defined(_M_IX86)
   DIZ(Wow64DisableWow64FsRedirection(&fsredir));
@@ -186,4 +194,17 @@ dntl_to_clipboard(wchar_t const *dntl)
   DIZ(OpenClipboard(NULL));
   DIZ(hData=SetClipboardData(CF_HDROP, hGlobal));
   DIZ(CloseClipboard());
+}
+
+/* print double null-terminated list */
+static void dntl_print(wchar_t const *dntl)
+{
+  wchar_t const *s=dntl;
+  int i=1;
+  while(*s!=0)
+    {
+      printf("%d: %S\n",i,s);
+      i++;
+      s+= 1 + wcslen(s);
+    }
 }
