@@ -4,7 +4,7 @@ STRIP=i686-w64-mingw32-strip
 CFLAGS=-Wall -Wextra
 LDLIBS=-lshlwapi
 
-ALL= fileclip.exe fileclipw.exe
+ALL= picellif.exe picellifw.exe
 
 all: $(ALL)
 
@@ -12,9 +12,9 @@ all: $(ALL)
 	$(CC) $(CFLAGS) $< -o $@ $(LDLIBS)
 	$(STRIP) $@
 
-fileclipw.exe: CFLAGS+=-mwindows
+picellifw.exe: CFLAGS+=-mwindows
 
-fileclipw.exe: fileclip.c
+picellifw.exe: picellif.c
 	$(CC) $(CFLAGS) $< -o $@ $(LDLIBS)
 	$(STRIP) $@
 

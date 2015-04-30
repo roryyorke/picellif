@@ -130,7 +130,10 @@ static void
 dntl_append_glob(wchar_t **dntl, wchar_t const *glob)
 {
   WIN32_FIND_DATAW findFileData;
+
+#if defined(_M_IX86)
   PVOID fsredir = NULL;
+#endif /* defined(_M_IX86) */ 
 
   wchar_t *filename = PathFindFileNameW(glob);
   wchar_t dirname[MAX_PATH];
@@ -143,7 +146,9 @@ dntl_append_glob(wchar_t **dntl, wchar_t const *glob)
   GetFullPathNameW(dirname, MAX_PATH, absdirname, NULL);
 
   /* unclear if this should *only* be done w/ 32-bit compiles on 64-bit system */
+#if defined(_M_IX86)
   DIZ(Wow64DisableWow64FsRedirection(&fsredir));
+#endif /* defined(_M_IX86) */ 
   
   hFind=FindFirstFileW(glob,&findFileData);
   /* TODO: actual error message here; user error, not a bug */
@@ -159,7 +164,9 @@ dntl_append_glob(wchar_t **dntl, wchar_t const *glob)
     }
   FindClose(hFind);
 
+#if defined(_M_IX86)
   DIZ(Wow64RevertWow64FsRedirection(fsredir));
+#endif /* defined(_M_IX86) */ 
 }
 
 static void
