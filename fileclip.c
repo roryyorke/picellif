@@ -17,6 +17,7 @@
 #include <windows.h> /* lots of things */
 #include <shlobj.h> /* DROPFILES */
 #include <shellapi.h> /* CommandLineToArgvW */
+#include <shlwapi.h> /* Path* */
 
 /* print message and exit 
  * TODO: handle no-console case better */
@@ -47,6 +48,19 @@ static size_t dntl_chars(wchar_t const *dntl);
 /* copy list to clipboard */
 static void dntl_to_clipboard(wchar_t const *dntl);
 
+/* print double null-terminated list */
+void dntl_print(wchar_t const *dntl)
+{
+  wchar_t const *s=dntl;
+  int i=1;
+  while(*s!=0)
+    {
+      printf("%d: %S\n",i,s);
+      i++;
+      s+= 1 + wcslen(s);
+    }
+}
+
 int 
 main()
 {
@@ -67,6 +81,8 @@ main()
     {
       dntl_append_glob(&dntl,argv[iarg]);
     }
+
+  dntl_print(dntl);
 
   LocalFree(argv);
 
@@ -129,21 +145,36 @@ static void
 dntl_append_glob(wchar_t **dntl, wchar_t const *glob)
 {
   WIN32_FIND_DATAW findFileData;
-  HANDLE hFind=FindFirstFileW(glob,&findFileData);
+  PVOID fsredir = NULL;
+
+  wchar_t *filename = PathFindFileNameW(glob);
+  wchar_t dirname[MAX_PATH];
+  wchar_t absdirname[MAX_PATH];
+  
+  HANDLE hFind;
+  DIZ(filename < glob + MAX_PATH -1);
+  wcsncpy(dirname,glob,filename-glob);
+  dirname[filename-glob]=0;
+  GetFullPathNameW(dirname, MAX_PATH, absdirname, NULL);
+
+  /* unclear if this should *only* be done w/ 32-bit compiles on 64-bit system */
+  DIZ(Wow64DisableWow64FsRedirection(&fsredir));
+  
+  hFind=FindFirstFileW(glob,&findFileData);
   /* TODO: actual error message here; user error, not a bug */
   DIZ(INVALID_HANDLE_VALUE != hFind );
   for(;;)
     {
       wchar_t abspath[MAX_PATH];
-      DWORD res;
-      DIZ(res=GetFullPathNameW(findFileData.cFileName, MAX_PATH, abspath, NULL));
-      DIZ(res<MAX_PATH);
+      DIZ(PathCombineW(abspath,absdirname,findFileData.cFileName));
       dntl_append(dntl, abspath);
       if(0==FindNextFileW(hFind,&findFileData))
         /* todo: check GetLastError() return */
         break;
     }
   FindClose(hFind);
+
+  DIZ(Wow64RevertWow64FsRedirection(fsredir));
 }
 
 static void
