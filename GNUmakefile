@@ -1,6 +1,8 @@
-# Makefile for GNU-based tools (mingw, etc.)
+# picellif Makefile for GNU-based tools (mingw, etc.)
+
 CC=i686-w64-mingw32-gcc
 STRIP=i686-w64-mingw32-strip
+
 CFLAGS=-Wall -Wextra
 LDLIBS=-lshlwapi
 
@@ -12,10 +14,8 @@ all: $(ALL)
 	$(CC) $(CFLAGS) $< -o $@ $(LDLIBS)
 	$(STRIP) $@
 
-picellifw.exe: CFLAGS+=-mwindows
-
-picellifw.exe: picellif.c
-	$(CC) $(CFLAGS) $< -o $@ $(LDLIBS)
+%w.exe: %.c
+	$(CC) $(CFLAGS) -mwindows $< -o $@ $(LDLIBS)
 	$(STRIP) $@
 
 clean:

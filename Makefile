@@ -1,4 +1,4 @@
-# Makefile for Microsoft Nmake
+# picellif Makefile for Microsoft Nmake
 #  disable 4076, which is 'assignment within conditional expression'; wants this for a expression-zero-check-macro 
 CFLAGS=/W4 /wd4706 /MD /D_CRT_SECURE_NO_WARNINGS
 

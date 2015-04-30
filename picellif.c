@@ -1,13 +1,9 @@
 /* picellif - utility to insert a list of files into the clipboard for subsequent pasting (copying) in  Explorer, Outlook, etc. 
  *
- * based on articles and code from, among other places,
- *   1. http://blogs.msdn.com/b/oldnewthing/archive/2013/05/20/10419965.aspx
- *   2. <todo:find stackoverfow answer by, I think, Remy Lebeau, which shows how to do the above w/o OLE>
- *
- * This whole thing is wchar_t based, following the example of 2 above.
+ * See LICENSE.txt for copyright and licensing, and README.md for a description.
  *
  * Usage: picellif filename1.exe file?pattern.* andsoon.txt yougettheidea*.doc
- *        Use picellifw for a no-console-creating version 
+ *        picellifw is a no-console-creating version
  */
 #include <stdio.h> /* printf, etc. */
 #include <stdlib.h> /* exit */
@@ -147,7 +143,6 @@ dntl_append_glob(wchar_t **dntl, wchar_t const *glob)
     wcscpy(dirname,L".\\");
   GetFullPathNameW(dirname, MAX_PATH, absdirname, NULL);
 
-  /* unclear if this should *only* be done w/ 32-bit compiles on 64-bit system */
 #if defined(_M_IX86)
   DIZ(Wow64DisableWow64FsRedirection(&fsredir));
 #endif /* defined(_M_IX86) */ 

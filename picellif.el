@@ -10,7 +10,7 @@
 
 ;;; Commentary:
 
-;; This package uses the picellif program to send lists of files to the
+;; This package uses the picellif binary to send lists of files to the
 ;; Windows clipboard.  This can be useful for pasting into other applications,
 ;; e.g., for attaching files in Microsoft Outlook messages.
 
