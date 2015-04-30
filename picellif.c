@@ -147,6 +147,8 @@ dntl_append_glob(wchar_t **dntl, wchar_t const *glob)
   DIZ(filename < glob + MAX_PATH -1);
   wcsncpy(dirname,glob,filename-glob);
   dirname[filename-glob]=0;
+  if(!dirname[0]) /* empty string ... */
+    wcscpy(dirname,L".\\");
   GetFullPathNameW(dirname, MAX_PATH, absdirname, NULL);
 
   printf("glob: '%S'\n",glob);
