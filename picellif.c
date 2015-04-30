@@ -1,4 +1,4 @@
-/* fileclip - utility to insert a list of files into the clipboard for subsequent pasting (copying) in  Explorer, Outlook, etc. 
+/* picellif - utility to insert a list of files into the clipboard for subsequent pasting (copying) in  Explorer, Outlook, etc. 
  *
  * based on articles and code from, among other places,
  *   1. http://blogs.msdn.com/b/oldnewthing/archive/2013/05/20/10419965.aspx
@@ -6,8 +6,8 @@
  *
  * This whole thing is wchar_t based, following the example of 2 above.
  *
- * Usage: fileclip filename1.exe file?pattern.* andsoon.txt yougettheidea*.doc
- *        Use fileclipw for a no-console-creating version 
+ * Usage: picellif filename1.exe file?pattern.* andsoon.txt yougettheidea*.doc
+ *        Use picellifw for a no-console-creating version 
  */
 #include <stdio.h> /* printf, etc. */
 #include <stdlib.h> /* exit */
