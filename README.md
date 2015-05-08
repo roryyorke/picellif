@@ -11,7 +11,7 @@ picellif.exe is a console programme, while picellifw.exe a GUI (or no-console) p
 
 Use it like this:
 
-  picellif file-current-dir.txt d:\absolute\path\is\ok ..\patterns*work*too.png
+  `picellif file-current-dir.txt d:\absolute\path\is\ok ..\patterns*work*too.png`
 
 picellif.el has two Emacs functions that use this tool, one for Dired mode, and the other for the current buffer's file.
 
