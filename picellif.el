@@ -3,7 +3,7 @@
 ;; Copyright (C) 2015 Rory Yorke
 
 ;; Author: Rory Yorke <rory.yorke@gmail.com>
-;; Version: 0.1
+;; Version: 0.2
 ;; Package-Requires: 
 ;; Keywords: clipboard
 ;; URL: http://github.com/roryyorke/picellif
@@ -13,6 +13,8 @@
 ;; This package uses the picellif binary to send lists of files to the
 ;; Windows clipboard.  This can be useful for pasting into other applications,
 ;; e.g., for attaching files in Microsoft Outlook messages.
+
+;; No change in this file from 0.1.1 to 0.2, but picellif.c has a bugfix.
 
 (defun picellif-dired-marked-files ()
   "Send marked files (or current file, if none marked) in current
