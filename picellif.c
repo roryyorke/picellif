@@ -44,6 +44,9 @@ static size_t dntl_chars(wchar_t const *dntl);
 /* copy list to clipboard */
 static void dntl_to_clipboard(wchar_t const *dntl);
 
+/* empty clipboard */
+static void empty_clipboard(void);
+
 int 
 main()
 {
@@ -66,6 +69,8 @@ main()
     }
 
   LocalFree(argv);
+
+  empty_clipboard();
 
   dntl_to_clipboard(dntl);
 
@@ -182,5 +187,12 @@ dntl_to_clipboard(wchar_t const *dntl)
   DIZ(!GlobalUnlock(hGlobal));
   DIZ(OpenClipboard(NULL));
   DIZ(hData=SetClipboardData(CF_HDROP, hGlobal));
+  DIZ(CloseClipboard());
+}
+
+static void empty_clipboard(void)
+{
+  DIZ(OpenClipboard(NULL));
+  DIZ(EmptyClipboard());
   DIZ(CloseClipboard());
 }
