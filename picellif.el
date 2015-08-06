@@ -16,16 +16,24 @@
 
 ;; No change in this file from 0.1.1 to 0.2, but picellif.c has a bugfix.
 
+;; todo: if picellif fails, show error message
+
 (defun picellif-dired-marked-files ()
   "Send marked files (or current file, if none marked) in current
 Dired buffer to picellif."
   (interactive)
-  (apply 'call-process "picellif" nil nil nil
-         (dired-get-marked-files)))
+  (if (equal 0 
+             (apply 'call-process "picellif" nil nil nil
+                    (dired-get-marked-files)))
+      (message "%d files sent to clipboard" (length (dired-get-marked-files)))
+    (message "error sending files to clipboard")))
 
 (defun picellif-buffer-file ()
   "Send file associated with current buffer to picellif."
   (interactive)
   (when (not (buffer-file-name))
     (error "Buffer has no associated file."))
-  (call-process "picellif" nil nil nil (buffer-file-name)))
+  (if (equal 0
+             (call-process "picellif" nil nil nil (buffer-file-name)))
+      (message "%s sent to clipboard" (buffer-file-name))
+    (message "error sending %s to clipboard" (buffer-file-name))))
