@@ -1,3 +1,10 @@
 # https://www.appveyor.com/docs/installed-software#mingw-msys-cygwin
 build_script: 
   - C:\msys64\usr\bin\bash -l -c "make -C /c/projects/picellif CC=cc STRIP=strip"
+
+after_build:
+  - 7z a picellif.zip %APPVEYOR_BUILD_FOLDER%\*.exe
+
+artifacts:
+  - path: picellif.zip
+    name: picellif
