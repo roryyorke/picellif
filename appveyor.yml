@@ -2,4 +2,4 @@
 build_script: 
   - C:\msys64\usr\bin\bash -l -c "ls /"
   - C:\msys64\usr\bin\bash -l -c "ls /c"
-  - C:\msys64\usr\bin\bash -l -c "make -C /c/project/picellif"
+  - C:\msys64\usr\bin\bash -l -c "make -C /c/projects/picellif"
