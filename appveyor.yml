@@ -1,3 +1,4 @@
 # https://www.appveyor.com/docs/installed-software#mingw-msys-cygwin
 build_script: 
-  - C:\msys64\usr\bin\make CC=gcc STRIP=strip
+  - set PATH=%PATH%;C:\msys64\usr\bin
+  - make CC=gcc STRIP=strip
