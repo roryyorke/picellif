@@ -1,5 +1,5 @@
 # https://www.appveyor.com/docs/installed-software#mingw-msys-cygwin
 build_script: 
   - C:\msys64\usr\bin\bash -l -c "ls /"
-  - C:\msys64\usr\bin\bash -l -c "ls /cygdrive/c"
-  - C:\msys64\usr\bin\bash -l -c "make -C /cygdrive/c/project/picellif"
+  - C:\msys64\usr\bin\bash -l -c "ls /c"
+  - C:\msys64\usr\bin\bash -l -c "make -C /c/project/picellif"
