@@ -1,3 +1,5 @@
 # https://www.appveyor.com/docs/installed-software#mingw-msys-cygwin
 build_script: 
+  - dir C:\projects\picellif\
   - C:\msys64\msys2_shell.bat build.sh
+  - dir C:\projects\picellif\
