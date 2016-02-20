@@ -1,1 +1,1 @@
-build_script: make
+build_script: c:/mingw/usr/bin/make
