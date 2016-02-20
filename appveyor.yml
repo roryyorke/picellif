@@ -1,2 +1,6 @@
 # https://www.appveyor.com/docs/installed-software#mingw-msys-cygwin
-build_script: C:\MinGW\bin\make
+build_script: 
+  - dir c:\
+  - dir c:\MinGW
+  - dir c:\msys64
+  - C:\MinGW\bin\make
